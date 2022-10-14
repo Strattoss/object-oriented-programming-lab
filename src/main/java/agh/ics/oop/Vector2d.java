@@ -1,11 +1,8 @@
 package agh.ics.oop;
 
-import java.util.Objects;
-import java.util.Vector;
-
 public class Vector2d {
-    public int x;
-    public int y;
+    final public int x;
+    final public int y;
 
     public Vector2d(int x, int y) {
         this.x = x;
@@ -54,13 +51,20 @@ public class Vector2d {
         return new Vector2d(-this.x, -this.y);
     }
 
-    /*public boolean equals(Object other) {
-        if (this == other)
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        if (!(other instanceof Vector2d))
+        if (!(obj instanceof Vector2d))
             return false;
-        Vector2d that = (Vector2d) other;
-        return Objects.equals()//
-    }*/
+        Vector2d other = (Vector2d) obj;
+        return this.x == other.x && this.y == other.y;
+    }
+
+    public int hashCode() {
+        int hash = 17;
+        hash = 31 * hash + this.x;
+        hash = 31 * hash + this.y;
+        return hash;
+    }
 
 }

@@ -2,12 +2,23 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args) {
-        System.out.println("System wystartowal");
 
-        Direction[] dirs = strToDir(args);
-        run(dirs);
+        // manual checking if Vector2d.toString and Vector2d.add work properly
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
 
-        System.out.println("System zakonczyl dzialanie");
+        // manual checking if MapDirection works properly
+        MapDirection a = MapDirection.NORTH;
+        System.out.println(a.toString());
+        System.out.println(a.next());
+        System.out.println(a.previous());
+        System.out.println(MapDirection.SOUTH);
+        System.out.println(a.toUnitVector());
+        System.out.println(a.equals(MapDirection.NORTH));
+        System.out.println(a.equals(MapDirection.SOUTH));
     }
 
     static Direction[] strToDir(String[] strs) {
