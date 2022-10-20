@@ -19,6 +19,14 @@ public class World {
         System.out.println(a.toUnitVector());
         System.out.println(a.equals(MapDirection.NORTH));
         System.out.println(a.equals(MapDirection.SOUTH));
+
+        Animal dog = new Animal();
+        System.out.println(dog);
+        dog.move(MoveDirection.RIGHT);
+        dog.move(MoveDirection.FORWARD);
+        dog.move(MoveDirection.FORWARD);
+        dog.move(MoveDirection.FORWARD);
+        System.out.println(dog);
     }
 
     static Direction[] strToDir(String[] strs) {
