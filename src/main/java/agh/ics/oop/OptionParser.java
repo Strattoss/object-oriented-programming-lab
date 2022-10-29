@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 public class OptionParser {
 
-    public static MoveDirection[] parse(String[] md) {
+    public MoveDirection[] parse(String[] md) {
         int validInstr = 0;
         for (String s : md) {
             switch (s) {

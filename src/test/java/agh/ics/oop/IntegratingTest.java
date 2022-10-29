@@ -4,32 +4,31 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class IntegratingTest {
-    String[][] args = {{},
-            {"f", "lk"},
-            {"l", "ggg", "backward", "jj"},
-            {"www", "ww", "right", "ww", "f", "po", "left", "forward"},
-            {"f", "f", "f", "f", "f", "r", "b", "b", "b", "b", "b"}};
-    MoveDirection[][] movDir = {{},
-            {MoveDirection.FORWARD},
-            {MoveDirection.LEFT, MoveDirection.BACKWARD},
-            {MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD},
-            {MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD}};
-    String[] results = {"Animal position: (2,2), orientation: north",
-            "Animal position: (2,3), orientation: north",
-            "Animal position: (3,2), orientation: west",
-            "Animal position: (3,3), orientation: north",
-            "Animal position: (0,4), orientation: east"};
+    // this test contains every risky situation: animals colliding, trying to go over allowed borders of the map,
+    // moving in all directions and so on
+    String[] testArgs = {"f",  "b",  "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f",
+            "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+    MoveDirection[] testMD = {MoveDirection.FORWARD, MoveDirection.BACKWARD, MoveDirection.RIGHT, MoveDirection.LEFT,
+            MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.RIGHT,
+            MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD,
+            MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD,
+            MoveDirection.RIGHT, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.FORWARD,
+            MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD,
+            MoveDirection.FORWARD, MoveDirection.FORWARD};
 
     @Test
     void test() {
-        for (int i = 0; i < args.length; i++) {
-            Assertions.assertArrayEquals(movDir[i], OptionParser.parse(args[i]));
-            Animal dog = new Animal();
-            for (MoveDirection md : movDir[i]) {
-                dog.move(md);
-            }
-            Assertions.assertEquals(dog.toString(), results[i]);
-        }
-    }
+        // test parser
+        Assertions.assertArrayEquals(testMD, new OptionParser().parse(testArgs));
 
+        // create map and engine
+        IWorldMap map = new RectangularMap(6, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        SimulationEngine engine = new SimulationEngine(testMD, map, positions);
+        engine.run();
+
+        // checking final position og Animals
+        Assertions.assertEquals(new Vector2d(0, 0), engine.getAnimal(0).getPosition());
+        Assertions.assertEquals(new Vector2d(6, 5), engine.getAnimal(1).getPosition());
+    }
 }

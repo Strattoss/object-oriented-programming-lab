@@ -1,19 +1,12 @@
 package agh.ics.oop;
 
-import java.util.Arrays;
-
 public class World {
     public static void main(String[] args) {
-
-        Animal dog = new Animal();
-
-        MoveDirection[] res_tab = OptionParser.parse(args);
-        System.out.println(Arrays.toString(res_tab));
-
-        for (MoveDirection md : res_tab) {
-            dog.move(md);
-        }
-
-        System.out.println(dog);
+        MoveDirection[] directions = new OptionParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        System.out.println(map);
     }
 }

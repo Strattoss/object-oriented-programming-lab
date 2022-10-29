@@ -3,22 +3,25 @@ package agh.ics.oop;
 public class Animal {
     private MapDirection orientation;
     private Vector2d position;
-    final private Vector2d bottomLeftCorner = new Vector2d(0, 0);
-    final private Vector2d upperRightCorner = new Vector2d(4, 4);
+    final IWorldMap map;
 
-    // statyczna lista zajętych pozycji dla całej klasy;
-    // każdemu zwierzęciu (obiektowi) podczas inicjalizacji przypisujemy jedno miejsce w tej tablicy;
-    // podczas wykonywania metody move, sprawdzamy, czy pozycja,
-    // na którą chcemy się przesunąć nie jest przypadkiem zajęta, a jeśli nie jest zajęta,
-    // to zmieniamy swoją pozycję we współdzielonej tablicy
-
-    public Animal() {
+    public Animal(IWorldMap map, Vector2d initialPosition) {
         orientation = MapDirection.NORTH;
-        position = new Vector2d(2, 2);
+        position = initialPosition;
+        // if map cannot place this animal, then this animal cannot be assigned to any map, hence this.map = null
+        this.map = map.place(this) ? map : null;
+    }
+
+    public Animal(IWorldMap map) {
+        this(map, new Vector2d(0,0));
     }
 
     public String toString() {
-        return "Animal position: "+position.toString()+", orientation: "+orientation.toString();
+        return orientation.toString();
+    }
+
+    public Vector2d getPosition() {
+        return this.position;
     }
 
     public boolean isAt(Vector2d position) {
@@ -32,13 +35,15 @@ public class Animal {
             case LEFT -> this.orientation = this.orientation.previous();
             case FORWARD -> {
                 endingPosition = this.position.add(orientation.toUnitVector());
-                if (endingPosition.follows(bottomLeftCorner) && endingPosition.precedes(upperRightCorner)) {
+                if (map.canMoveTo(endingPosition))
+                {
                     this.position = endingPosition;
                 }
             }
             case BACKWARD -> {
                 endingPosition = this.position.add(orientation.toUnitVector().opposite());
-                if (endingPosition.follows(bottomLeftCorner) && endingPosition.precedes(upperRightCorner)) {
+                if (map.canMoveTo(endingPosition))
+                {
                     this.position = endingPosition;
                 }
             }
