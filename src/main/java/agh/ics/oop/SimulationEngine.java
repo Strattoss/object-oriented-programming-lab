@@ -17,7 +17,7 @@ public class SimulationEngine implements IEngine{
     public void run() {
         int i = 0;
         while (i<md.length) {
-            animals.get(i%animals.size()).move(md[i]);
+            animals.get(i%animals.size()) .move(md[i]);
             i++;
         }
     }

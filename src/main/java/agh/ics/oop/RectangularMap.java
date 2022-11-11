@@ -22,12 +22,7 @@ public class RectangularMap implements IWorldMap {
         if (!position.follows(bottomLeftCorner) || !position.precedes(upperRightCorner)) {
             return false;
         }
-        for (Animal animal : animals) {
-            if (animal.getPosition().equals(position)) {
-                return false;
-            }
-        }
-        return true;
+        return !isOccupied(position);
     }
 
     public boolean place(Animal animal) {
@@ -39,13 +34,8 @@ public class RectangularMap implements IWorldMap {
     }
 
      public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.getPosition().equals(position)) {
-                return true;
-            }
-        }
-        return false;
-    }
+         return objectAt(position) != null;
+     }
 
     public Object objectAt(Vector2d position) {
         for (Animal animal : animals) {

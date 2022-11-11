@@ -10,6 +10,9 @@ public class Animal {
         position = initialPosition;
         // if map cannot place this animal, then this animal cannot be assigned to any map, hence this.map = null
         this.map = map.place(this) ? map : null;
+        if (this.map == null) {
+            throw new ExceptionInInitializerError("The animal couldn't be placed on the map! Position: "+position+", map: "+map);
+        }
     }
 
     public Animal(IWorldMap map) {
