@@ -38,15 +38,13 @@ public class Animal {
             case LEFT -> this.orientation = this.orientation.previous();
             case FORWARD -> {
                 endingPosition = this.position.add(orientation.toUnitVector());
-                if (map.canMoveTo(endingPosition))
-                {
+                if (map.canMoveTo(endingPosition)) {
                     this.position = endingPosition;
                 }
             }
             case BACKWARD -> {
                 endingPosition = this.position.add(orientation.toUnitVector().opposite());
-                if (map.canMoveTo(endingPosition))
-                {
+                if (map.canMoveTo(endingPosition)) {
                     this.position = endingPosition;
                 }
             }
