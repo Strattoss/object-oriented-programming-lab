@@ -1,16 +1,17 @@
 package agh.ics.oop;
 
 public class Grass {
-    final private Vector2d position;
-    public Grass(Vector2d position) {
-        this.position = position;
-    }
+	final private Vector2d position;
 
-    public Vector2d getPosition() {
-        return this.position;
-    }
+	public Grass(Vector2d position) {
+		this.position = position;
+	}
 
-    public String toString() {
-        return "*";
-    }
+	public Vector2d getPosition() {
+		return this.position;
+	}
+
+	public String toString() {
+		return "*";
+	}
 }

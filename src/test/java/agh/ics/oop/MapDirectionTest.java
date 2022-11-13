@@ -7,10 +7,10 @@ public class MapDirectionTest {
 
     @Test
     public void toStringTest() {
-        Assertions.assertEquals("Północ", MapDirection.NORTH.toString());
-        Assertions.assertEquals("Wschód", MapDirection.EAST.toString());
-        Assertions.assertEquals("Południe", MapDirection.SOUTH.toString());
-        Assertions.assertEquals("Zachód", MapDirection.WEST.toString());
+        Assertions.assertEquals("N", MapDirection.NORTH.toString());
+        Assertions.assertEquals("E", MapDirection.EAST.toString());
+        Assertions.assertEquals("S", MapDirection.SOUTH.toString());
+        Assertions.assertEquals("W", MapDirection.WEST.toString());
     }
 
     @Test
