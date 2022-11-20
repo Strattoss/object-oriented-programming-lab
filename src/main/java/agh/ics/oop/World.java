@@ -9,6 +9,7 @@ public class World {
 		engine.run();
 		System.out.println(map);
 
+        /*
 		directions = new OptionParser().parse(args);
 		map = new GrassField(10);
 		Animal cow = new Animal(map, new Vector2d(2, 2));
@@ -16,7 +17,7 @@ public class World {
 		for (MoveDirection direction : directions) {
 			cow.move(direction);
 			System.out.println(map);
-		}
+		}*/
 
 	}
 }
