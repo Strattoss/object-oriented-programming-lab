@@ -1,37 +1,16 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractWorldMap implements IWorldMap {
-	//final ArrayList<Animal> animals = new ArrayList<>();
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 	final Map<Vector2d, Animal> animals = new HashMap<>();
 
 	public boolean canMoveTo(Vector2d position) {
 		return animals.get(position) == null;
-
-		/*for (Animal animal : animals) {
-			if (animal.getPosition().equals(position)) {
-				return false;
-			}
-		}
-		return true;*/
 	}
 
-	/**
-	 * An object has just moved to this position, so do what is necessary
-	 *
-	 * @param position The position an object moved to
-	 */
-	public abstract void hasMovedTo(Vector2d position);
-
 	public boolean place(Animal animal) {
-		/*if (canMoveTo(animal.getPosition())) {
-			animals.add(animal);
-			hasMovedTo(animal.getPosition());
-			return true;
-		} else return false;*/
 		if (canMoveTo(animal.getPosition())) {
 			animals.put(animal.getPosition(), animal);
 			hasMovedTo(animal.getPosition());
@@ -39,19 +18,30 @@ public abstract class AbstractWorldMap implements IWorldMap {
 		} else return false;
 	}
 
+	public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+		// rewrite the position of an animal on oldPosition to newPosition
+		Animal animal = animals.get(oldPosition);
+		animals.remove(oldPosition);
+		animals.put(newPosition, animal);
+		hasMovedTo(newPosition);
+	}
+
+	/**
+	 * An object has just moved to this position, so do, check and update what is necessary
+	 *
+	 * @param position The position an object moved to
+	 */
+	public abstract void hasMovedTo(Vector2d position);
+
 	public boolean isOccupied(Vector2d position) {
 		return objectAt(position) != null;
 	}
 
 	public Object objectAt(Vector2d position) {
-		/*for (Animal animal : animals) {
-			if (animal.getPosition().equals(position)) {
-				return animal;
-			}
-		}
-		return null;*/
 		return animals.get(position);
 	}
+
+
 
 	public String toString() {
 		MapVisualizer mapVisualizer = new MapVisualizer(this);
