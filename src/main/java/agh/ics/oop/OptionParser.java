@@ -1,36 +1,31 @@
 package agh.ics.oop;
 
+import java.util.Objects;
+
 public class OptionParser {
-
 	public MoveDirection[] parse(String[] md) {
-		int validInstr = 0;
-		for (String s : md) {
-			switch (s) {
-				case "f", "forward", "b", "backward", "l", "left", "r", "right" -> validInstr += 1;
-			}
-		}
+		MoveDirection[] res = new MoveDirection[md.length];
 
-		MoveDirection[] res = new MoveDirection[validInstr];
-
-		int j = 0;
+		int i = 0;
 		for (String s : md) {
 			switch (s) {
 				case "f", "forward" -> {
-					res[j] = MoveDirection.FORWARD;
-					j++;
+					res[i] = MoveDirection.FORWARD;
+					i++;
 				}
 				case "b", "backward" -> {
-					res[j] = MoveDirection.BACKWARD;
-					j++;
+					res[i] = MoveDirection.BACKWARD;
+					i++;
 				}
 				case "l", "left" -> {
-					res[j] = MoveDirection.LEFT;
-					j++;
+					res[i] = MoveDirection.LEFT;
+					i++;
 				}
 				case "r", "right" -> {
-					res[j] = MoveDirection.RIGHT;
-					j++;
+					res[i] = MoveDirection.RIGHT;
+					i++;
 				}
+				default -> throw new IllegalArgumentException(s + " is not legal move specification");
 			}
 		}
 		return res;

@@ -25,19 +25,13 @@ public class GrassFieldTest {
     @Test
     public void placeTest() {
         map = new GrassField(10);
-        Vector2d[] positions = {new Vector2d(0, 0),new Vector2d(3, 6), new Vector2d(3, 6), new Vector2d(-1000, -1000)};
-        boolean[] bools = {true, true, false, true};
+        // we can place animals on tiles with grass, so we don't check if grass is already on the tile,
+        // because it should be automatically destroyed
 
-        Animal animal;
-        // we can place animals on tiles with grass, so we don't check if grass is already on the tile
-        for (int i = 0; i < positions.length; i++) {
-            animal = new Animal(map, positions[i]);
-            if (bools[i]) {
-                Assertions.assertNotNull(animal.map);
-            } else {
-                Assertions.assertNull(animal.map);
-            }
-        }
+        Assertions.assertEquals(new Animal(map, new Vector2d(0, 0)), map.objectAt(new Vector2d(0, 0)));
+        Assertions.assertEquals(new Animal(map, new Vector2d(3, 6)), map.objectAt(new Vector2d(3, 6)));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { new Animal(map, new Vector2d(3, 6)); });
+        Assertions.assertEquals(new Animal(map, new Vector2d(-1000, -1000)), map.objectAt(new Vector2d(-1000, -1000)));
     }
 
     @Test

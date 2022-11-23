@@ -47,7 +47,6 @@ public class Animal {
 	}
 
 	private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-		System.out.println("My position has changed from "+oldPosition+" to  "+newPosition);
 		for (IPositionChangeObserver observer : observers) {
 			observer.positionChanged(oldPosition, newPosition);
 		}

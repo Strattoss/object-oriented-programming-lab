@@ -33,11 +33,9 @@ public class RectangularMapTest {
 		Assertions.assertEquals(dog, map.objectAt(new Vector2d(0, 0)));
 		Assertions.assertEquals(pig, map.objectAt(new Vector2d(3, 6)));
 
-		//shouldn't be placed correctly
-		Animal cow = new Animal(map, new Vector2d(3, 6));
-		Assertions.assertNull(cow.map);
-		Animal hen = new Animal(map, new Vector2d(4, 6));
-		Assertions.assertNull(hen.map);
+		//shouldn't be placed correctly and should throw exception
+		Assertions.assertThrows(IllegalArgumentException.class, () -> { new Animal(map, new Vector2d(3, 6)); });
+		Assertions.assertThrows(IllegalArgumentException.class, () -> { new Animal(map, new Vector2d(4, 6)); });
 	}
 
 	@Test
