@@ -3,23 +3,20 @@ package agh.ics.oop;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Animal {
-	final IWorldMap map;
+public class Animal extends AbstractMapElement {
+
 	private MapDirection orientation;
-	private Vector2d position;
+
 	private final Set<IPositionChangeObserver> observers = new HashSet<>();
 
 	public Animal(IWorldMap map, Vector2d initialPosition) {
 		orientation = MapDirection.NORTH;
 		position = initialPosition;
-		// if map cannot place this animal, then this animal cannot be assigned to any map, hence this.map = null
-		this.map = map.place(this) ? map : null;
-        /*if (this.map == null) {
-            throw new ExceptionInInitializerError("The animal couldn't be placed on position: "+position+", on the following map: \n"+map);
-        }*/
-		if (this.map != null) {
-			addObserver((IPositionChangeObserver) map);
-		}
+		this.map = map;
+		map.place(this);
+
+		addObserver((IPositionChangeObserver) this.map);
+
 	}
 
 	public Animal(IWorldMap map) {
@@ -28,10 +25,6 @@ public class Animal {
 
 	public String toString() {
 		return orientation.toString();
-	}
-
-	public Vector2d getPosition() {
-		return this.position;
 	}
 
 	public boolean isAt(Vector2d position) {
