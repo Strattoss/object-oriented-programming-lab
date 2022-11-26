@@ -3,11 +3,10 @@ package agh.ics.oop;
 import java.util.ArrayList;
 
 public class SimulationEngine implements IEngine {
-	private final ArrayList<Animal> animals;
+	private final ArrayList<Animal> animals = new ArrayList<>();
 	private final MoveDirection[] md;
 
 	public SimulationEngine(MoveDirection[] md, IWorldMap map, Vector2d[] initialPositions) {
-		animals = new ArrayList<>();
 		this.md = md;
 		for (Vector2d initPos : initialPositions) {
 			animals.add(new Animal(map, initPos));

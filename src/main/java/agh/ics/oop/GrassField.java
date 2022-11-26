@@ -30,7 +30,8 @@ public class GrassField extends AbstractWorldMap {
 			while (this.isOccupied(randPosition)) {
 				randPosition = randGrassPosition();
 			}
-			grasses.put(randPosition, new Grass(randPosition));
+			grasses.put(randPosition, new Grass(this, randPosition));
+			mapBoundary.add(randPosition);
 		}
 	}
 
@@ -47,36 +48,6 @@ public class GrassField extends AbstractWorldMap {
 	@Override
 	public boolean noMapElementExists() {
 		return super.noMapElementExists() && grasses.size() == 0;
-	}
-
-	@Override
-	public Vector2d getBottomLeftCorner() {
-		// take first element
-		Vector2d bottomLeft = animals.keySet().iterator().next();
-		for (Vector2d position : animals.keySet()) {
-			bottomLeft = bottomLeft.lowerLeft(position);
-		}
-
-		for (Vector2d position : grasses.keySet()) {
-			bottomLeft = bottomLeft.lowerLeft(position);
-		}
-
-		return bottomLeft;
-	}
-
-	@Override
-	public Vector2d getUpperRightCorner() {
-		// take first element
-		Vector2d upperRight = animals.keySet().iterator().next();
-		for (Vector2d position : animals.keySet()) {
-			upperRight = upperRight.upperRight(position);
-		}
-
-		for (Vector2d position : grasses.keySet()) {
-			upperRight = upperRight.upperRight(position);
-		}
-
-		return upperRight;
 	}
 
 	@Override
@@ -99,6 +70,7 @@ public class GrassField extends AbstractWorldMap {
 	public void hasMovedTo(Vector2d position) {
 		if (grasses.containsKey(position)) {
 			grasses.remove(position);
+			mapBoundary.remove(position);
 			spawnGrass(1);
 		}
 	}
