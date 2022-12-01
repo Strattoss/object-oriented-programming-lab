@@ -1,5 +1,6 @@
-package agh.ics.oop;
+package agh.ics.oop.gui;
 
+import agh.ics.oop.*;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -57,11 +59,15 @@ public class App extends Application {
 
         /* Building map axes */
         Label label;
-        grid.add(new Label("x/y"), 0, 0, 1, 1);
+        grid.add(new Label("x/y"), 0, 0);
+
+        //temporary
+        VBox vBox;
 
         for (int i = leftX; i <= rightX; i++) {
             label = new Label(Integer.toString(i));
-            grid.add(label, i+1, 0, 1, 1);
+
+            grid.add(label, i+1, 0);
             GridPane.setHalignment(label, HPos.CENTER);
             grid.getColumnConstraints().add(new ColumnConstraints(20));
         }

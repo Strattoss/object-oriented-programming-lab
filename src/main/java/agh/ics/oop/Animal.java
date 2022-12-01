@@ -31,6 +31,16 @@ public class Animal extends AbstractMapElement {
 		return this.position.equals(position);
 	}
 
+	@Override
+	public String getImgURL() {
+		return switch (this.orientation) {
+			case NORTH -> "src/main/resources/up.png";
+			case EAST -> "src/main/resources/right.png";
+			case SOUTH -> "src/main/resources/down.png";
+			case WEST -> "src/main/resources/left.png";
+		};
+	}
+
 	private void addObserver(IPositionChangeObserver observer) {
 		observers.add(observer);
 	}

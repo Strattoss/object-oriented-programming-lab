@@ -1,11 +1,12 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
 import javafx.application.Application;
 
 public class World {
 
     public static void main(String[] args) {
-        try {
+        /*try {
             MoveDirection[] directions = new OptionParser().parse(args);
 
             AbstractWorldMap map = new RectangularMap(10, 10);
@@ -18,18 +19,9 @@ public class World {
             System.out.println(map.getUpperRightCorner());
 
             System.out.println(map);
-
-            /*directions = new OptionParser().parse(args);
-            map = new GrassField(10);
-            Animal cow = new Animal(map, new Vector2d(2, 2));
-
-            for (MoveDirection direction : directions) {
-                cow.move(direction);
-                System.out.println(map);
-            }*/
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
-        }
+        }*/
 
         Application.launch(App.class, args);
     }
