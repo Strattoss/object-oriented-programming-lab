@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.GuiElementBox;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +17,10 @@ public class Animal extends AbstractMapElement {
 		this.map = map;
 		map.place(this);
 
-		addObserver((IPositionChangeObserver) this.map);
+		gui = new GuiElementBox(this);
 
+		addObserver(gui);
+		addObserver((IPositionChangeObserver) this.map);
 	}
 
 	public Animal(IWorldMap map) {
@@ -34,14 +38,14 @@ public class Animal extends AbstractMapElement {
 	@Override
 	public String getImgURL() {
 		return switch (this.orientation) {
-			case NORTH -> "src/main/resources/up.png";
-			case EAST -> "src/main/resources/right.png";
-			case SOUTH -> "src/main/resources/down.png";
-			case WEST -> "src/main/resources/left.png";
+			case NORTH -> "file:src/main/resources/up.png";
+			case EAST -> "file:src/main/resources/right.png";
+			case SOUTH -> "file:src/main/resources/down.png";
+			case WEST -> "file:src/main/resources/left.png";
 		};
 	}
 
-	private void addObserver(IPositionChangeObserver observer) {
+	public void addObserver(IPositionChangeObserver observer) {
 		observers.add(observer);
 	}
 
@@ -59,9 +63,13 @@ public class Animal extends AbstractMapElement {
 		Vector2d endingPosition;
 		Vector2d startingPosition = this.position;
 		switch (direction) {
-			case RIGHT -> this.orientation = this.orientation.next();
+			case RIGHT -> {
+				this.orientation = this.orientation.next();
+				positionChanged(startingPosition, startingPosition);}
 
-			case LEFT -> this.orientation = this.orientation.previous();
+			case LEFT -> {
+				this.orientation = this.orientation.previous();
+				positionChanged(startingPosition, startingPosition);}
 
 			case FORWARD -> {
 				endingPosition = this.position.add(orientation.toUnitVector());

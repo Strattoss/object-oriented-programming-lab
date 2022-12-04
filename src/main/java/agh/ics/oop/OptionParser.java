@@ -1,9 +1,9 @@
 package agh.ics.oop;
 
-import java.util.Objects;
-
 public class OptionParser {
 	public MoveDirection[] parse(String[] md) {
+		if (md.length == 0) return new MoveDirection[]{};
+
 		MoveDirection[] res = new MoveDirection[md.length];
 
 		int i = 0;

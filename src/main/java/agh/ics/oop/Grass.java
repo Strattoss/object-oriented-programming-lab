@@ -1,10 +1,13 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.GuiElementBox;
+
 public class Grass extends AbstractMapElement {
 
 	public Grass(IWorldMap map, Vector2d position) {
 		this.map = map;
 		this.position = position;
+		this.gui = new GuiElementBox(this);
 	}
 
 	public String toString() {
@@ -13,6 +16,6 @@ public class Grass extends AbstractMapElement {
 
 	@Override
 	public String getImgURL() {
-		return "src/main/resources/grass.png";
+		return "file:src/main/resources/grass.png";
 	}
 }
